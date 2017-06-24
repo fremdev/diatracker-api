@@ -1,0 +1,16 @@
+{
+  "name": "diabetes-diary-api",
+  "version": "0.0.1",
+  "description": "Api for managing diabetes: blood surar level, insulin doses, weight etc.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "api",
+    "diabetes",
+    "blood sugar"
+  ],
+  "author": "Alex Efremov(alex.efremov.dev@gmail.com)",
+  "license": "UNLICENSED"
+}
