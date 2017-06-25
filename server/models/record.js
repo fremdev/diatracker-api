@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const Record = mongoose.model('Record', {
-  sugarLevel: {
+  sugar: {
     type: Number,
   },
   bloodPressure: {
@@ -12,4 +12,4 @@ const Record = mongoose.model('Record', {
   },
 });
 
-module.exports = Record;
+module.exports = { Record };

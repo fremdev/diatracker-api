@@ -4,7 +4,7 @@
   "description": "Api for managing diabetes: blood sugar level, insulin doses, weight etc.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha server/**/*.test.js"
   },
   "keywords": [
     "api",
@@ -20,6 +20,11 @@
   },
   "devDependencies": {
     "chai": "^4.0.2",
+    "eslint": "^4.1.0",
+    "eslint-config-airbnb": "^15.0.1",
+    "eslint-plugin-import": "^2.6.0",
+    "eslint-plugin-jsx-a11y": "^5.0.3",
+    "eslint-plugin-react": "^7.1.0",
     "mocha": "^3.4.2",
     "supertest": "^3.0.0"
   }
