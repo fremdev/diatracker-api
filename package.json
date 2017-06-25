@@ -1,7 +1,7 @@
 {
   "name": "diabetes-diary-api",
   "version": "0.0.1",
-  "description": "Api for managing diabetes: blood surar level, insulin doses, weight etc.",
+  "description": "Api for managing diabetes: blood sugar level, insulin doses, weight etc.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -12,5 +12,15 @@
     "blood sugar"
   ],
   "author": "Alex Efremov(alex.efremov.dev@gmail.com)",
-  "license": "UNLICENSED"
+  "license": "UNLICENSED",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "express": "^4.15.3",
+    "mongoose": "^4.10.8"
+  },
+  "devDependencies": {
+    "chai": "^4.0.2",
+    "mocha": "^3.4.2",
+    "supertest": "^3.0.0"
+  }
 }
