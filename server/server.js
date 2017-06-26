@@ -25,6 +25,16 @@ app.post('/record', (req, res) => {
   }
 });
 
+app.get('/records', (req, res) => {
+  Record.find()
+    .then((records) => {
+      res.send({ records });
+    })
+    .catch((e) => {
+      res.send(400).send(e);
+    });
+});
+
 app.listen(3000, () => {
   console.log('Listen on port 3000');
 });
