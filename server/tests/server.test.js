@@ -23,16 +23,31 @@ describe('POST /record', () => {
         if (err) {
           return done(err);
         }
-        Record.find().then((records) => {
-          expect(records).to.have.lengthOf(1);
-          expect(records[0].sugar).to.equal(sugar);
-          done();
-        })
-        .catch(err => done(err));
+        Record.find()
+          .then((records) => {
+            expect(records).to.have.lengthOf(1);
+            expect(records[0].sugar).to.equal(sugar);
+            done();
+          })
+          .catch(e => done(e));
       });
   });
 
-  it('should not create a record if body is empty', () => {
-
+  it('should not create a record if body is empty', (done) => {
+    request(app)
+      .post('/record')
+      .send({})
+      .expect(400)
+      .end((err, res) => {
+        if (err) {
+          return done(err);
+        }
+        Record.find()
+          .then((records) => {
+            expect(records).to.have.lengthOf(0);
+            done();
+          })
+          .catch(e => done(e));
+      });
   });
 });

@@ -8,16 +8,21 @@ const app = express();
 app.use(bodyParser.json());
 
 app.post('/record', (req, res) => {
-  const record = new Record({
-    sugar: req.body.sugar,
-  });
-
-  record.save().then((doc) => {
-    res.send(doc);
-  })
-    .catch((err) => {
-      res.status(400).send(err);
+  if (req.body.sugar || req.body.bloodPressure) {
+    const record = new Record({
+      sugar: req.body.sugar,
+      bloodPressure: req.body.bloodPressure,
     });
+
+    record.save().then((doc) => {
+      res.send(doc);
+    })
+      .catch((err) => {
+        res.status(400).send(err);
+      });
+  } else {
+    res.status(400).send('The record should have at least one field');
+  }
 });
 
 app.listen(3000, () => {
