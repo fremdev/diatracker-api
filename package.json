@@ -4,6 +4,7 @@
   "description": "Api for managing diabetes: blood sugar level, insulin doses, weight etc.",
   "main": "index.js",
   "scripts": {
+    "start": "node server/server.js",
     "test": "mocha server/**/*.test.js"
   },
   "keywords": [
@@ -11,6 +12,9 @@
     "diabetes",
     "blood sugar"
   ],
+  "engines": {
+    "node": "8.1.2"
+  },
   "author": "Alex Efremov(alex.efremov.dev@gmail.com)",
   "license": "UNLICENSED",
   "dependencies": {

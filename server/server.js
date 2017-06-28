@@ -6,6 +6,8 @@ const mongoose = require('./db/mongoose');
 const { Record } = require('./models/record');
 
 const app = express();
+const port = process.env.PORT || 3000;
+
 app.use(bodyParser.json());
 
 app.post('/record', (req, res) => {
@@ -53,8 +55,8 @@ app.get('/records/:id', (req, res) => {
     });
 });
 
-app.listen(3000, () => {
-  console.log('Listen on port 3000');
+app.listen(port, () => {
+  console.log(`Listen on port ${port}`);
 });
 
 module.exports = { app };
