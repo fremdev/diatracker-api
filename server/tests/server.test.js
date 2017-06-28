@@ -4,8 +4,15 @@ const request = require('supertest');
 const { app } = require('../server');
 const { Record } = require('../models/record');
 
+const records = [
+  { sugar: 5.5 },
+  { sugar: 7.0 },
+];
+
 beforeEach((done) => {
-  Record.remove({}).then(() => done());
+  Record.remove({})
+    .then(() => Record.insertMany(records))
+    .then(() => done());
 });
 
 describe('POST /record', () => {
@@ -24,9 +31,9 @@ describe('POST /record', () => {
           return done(err);
         }
         Record.find()
-          .then((records) => {
-            expect(records).to.have.lengthOf(1);
-            expect(records[0].sugar).to.equal(sugar);
+          .then((result) => {
+            expect(result).to.have.lengthOf(3);
+            expect(result[2].sugar).to.equal(sugar);
             done();
           })
           .catch(e => done(e));
@@ -43,11 +50,23 @@ describe('POST /record', () => {
           return done(err);
         }
         Record.find()
-          .then((records) => {
-            expect(records).to.have.lengthOf(0);
+          .then((result) => {
+            expect(result).to.have.lengthOf(2);
             done();
           })
           .catch(e => done(e));
       });
+  });
+});
+
+describe('GET /records route', () => {
+  it('should receive all records', (done) => {
+    request(app)
+      .get('/records')
+      .expect(200)
+      .expect((res) => {
+        expect(res.body.records).to.have.lengthOf(2);
+      })
+      .end(done);
   });
 });
