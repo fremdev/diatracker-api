@@ -1,12 +1,13 @@
 const expect = require('chai').expect;
 const request = require('supertest');
+const { ObjectID } = require('mongodb');
 
 const { app } = require('../server');
 const { Record } = require('../models/record');
 
 const records = [
-  { sugar: 5.5 },
-  { sugar: 7.0 },
+  { _id: new ObjectID(), sugar: 5.5 },
+  { _id: new ObjectID(), sugar: 7.0 },
 ];
 
 beforeEach((done) => {
@@ -67,6 +68,34 @@ describe('GET /records route', () => {
       .expect((res) => {
         expect(res.body.records).to.have.lengthOf(2);
       })
+      .end(done);
+  });
+});
+
+describe('GET /records/:id', () => {
+  it('should return record doc', (done) => {
+    request(app)
+      .get(`/records/${records[0]._id}`)
+      .expect(200)
+      .expect((res) => {
+        expect(res.body.record.sugar).to.equal(records[0].sugar);
+      })
+      .end(done);
+  });
+
+  it('should return 404 if record not found', (done) => {
+    const testId = new ObjectID();
+    request(app)
+      .get(`/records/${testId}`)
+      .expect(404)
+      .end(done);
+  });
+
+  it('should return 404 if id is invalid', (done) => {
+    const invalidId = '12345';
+    request(app)
+      .get(`/records/${invalidId}}`)
+      .expect(404)
       .end(done);
   });
 });
