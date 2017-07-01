@@ -74,11 +74,12 @@ describe('GET /records route', () => {
 
 describe('GET /records/:id', () => {
   it('should return record doc', (done) => {
+    const hexId = records[0]._id.toHexString();
     request(app)
-      .get(`/records/${records[0]._id}`)
+      .get(`/records/${hexId}`)
       .expect(200)
       .expect((res) => {
-        expect(res.body.record.sugar).to.equal(records[0].sugar);
+        expect(res.body.record._id).to.equal(hexId);
       })
       .end(done);
   });
@@ -95,6 +96,45 @@ describe('GET /records/:id', () => {
     const invalidId = '12345';
     request(app)
       .get(`/records/${invalidId}}`)
+      .expect(404)
+      .end(done);
+  });
+});
+
+describe('DELETE /records/:id', () => {
+  it('should remove record', (done) => {
+    const hexId = records[0]._id.toHexString();
+    request(app)
+      .delete(`/records/${hexId}`)
+      .expect(200)
+      .expect((res) => {
+        expect(res.body.record._id).to.equal(hexId);
+      })
+      .end((err, res) => {
+        if (err) {
+          return done(err);
+        }
+        Record.findById()
+          .then((result) => {
+            expect(result).to.be.null;
+            done();
+          })
+          .catch(e => done(e));
+      });
+  });
+
+  it('should return 404 if record not found', (done) => {
+    const testId = new ObjectID();
+    request(app)
+      .delete(`/records/${testId}`)
+      .expect(404)
+      .end(done);
+  });
+
+  it('should return 404 if id is invalid', (done) => {
+    const invalidId = '12345';
+    request(app)
+      .delete(`/records/${invalidId}}`)
       .expect(404)
       .end(done);
   });
