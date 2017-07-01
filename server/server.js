@@ -55,6 +55,24 @@ app.get('/records/:id', (req, res) => {
     });
 });
 
+app.delete('/records/:id', (req, res) => {
+  const id = req.params.id;
+  if (!ObjectID.isValid(id)) {
+    return res.status(404).send();
+  }
+
+  Record.findByIdAndRemove(id)
+    .then((record) => {
+      if (!record) {
+        return res.status(404).send();
+      }
+      res.send({ record });
+    })
+    .catch((e) => {
+      res.status(400).send(e);
+    });
+});
+
 app.listen(port, () => {
   console.log(`Listen on port ${port}`);
 });
