@@ -21,7 +21,8 @@
     "body-parser": "^1.17.2",
     "express": "^4.15.3",
     "mongodb": "^2.2.29",
-    "mongoose": "^4.10.8"
+    "mongoose": "^4.10.8",
+    "ramda": "^0.24.1"
   },
   "devDependencies": {
     "chai": "^4.0.2",
